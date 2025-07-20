@@ -1,0 +1,16 @@
+{
+  "model_type": "IsolationForest",
+  "training_date": "2025-07-19T11:26:18.506492",
+  "features": [
+    "avg_interval",
+    "min_interval",
+    "max_interval",
+    "variance",
+    "tap_speed"
+  ],
+  "test_samples": 45,
+  "test_humans": 30,
+  "test_bots": 15,
+  "contamination": 0.1,
+  "n_estimators": 100
+}
