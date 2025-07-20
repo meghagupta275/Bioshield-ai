@@ -1,0 +1,2086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canara Bank - Digital Banking</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .session-timer {
+            background: rgba(255,255,255,0.1);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Account Overview */
+        .account-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .account-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid #e2e8f0;
+        }
+
+        .account-type {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .account-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: white;
+        }
+
+        .savings { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+        .current { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); }
+        .fd { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
+
+        .balance-amount {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1e293b;
+            margin: 10px 0;
+        }
+
+        .account-number {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .account-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .primary-btn {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .secondary-btn {
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .action-item {
+            text-align: center;
+            padding: 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid #e2e8f0;
+        }
+
+        .action-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border-color: #3b82f6;
+        }
+
+        .action-icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 12px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+        }
+
+        .transfer { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+        .upi { background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); }
+        .qr { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
+        .fd { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); }
+        .statement { background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); }
+        .beneficiary { background: linear-gradient(135deg, #84cc16 0%, #65a30d 100%); }
+        .loan { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
+        .credit-card { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); }
+        .insurance { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+        .mutual-fund { background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); }
+        .limits { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); }
+        .support { background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); }
+
+        .action-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        /* Recent Transactions */
+        .transactions-section {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .transactions-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .view-all {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .transaction-item:last-child {
+            border-bottom: none;
+        }
+
+        .transaction-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .transaction-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: white;
+        }
+
+        .credit { background: #10b981; }
+        .debit { background: #ef4444; }
+
+        .transaction-details h4 {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .transaction-details p {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .transaction-amount {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .amount-credit { color: #10b981; }
+        .amount-debit { color: #ef4444; }
+
+        /* Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #64748b;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+
+        .close:hover {
+            background: #f1f5f9;
+            color: #374151;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #1e293b;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #374151;
+            font-size: 14px;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.2s;
+            background: #f8fafc;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* QR Scanner */
+        .qr-scanner {
+            width: 100%;
+            height: 250px;
+            background: #f8fafc;
+            border: 2px dashed #cbd5e1;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .qr-scanner.active {
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+
+        .scanner-placeholder {
+            text-align: center;
+            color: #64748b;
+        }
+
+        .scanner-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: #94a3b8;
+        }
+
+        /* Security Features */
+        .security-badge {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 500;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .security-safe {
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+        .security-warning {
+            background: #fef3c7;
+            color: #92400e;
+            border: 1px solid #fde68a;
+        }
+
+        .security-danger {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .account-overview {
+                grid-template-columns: 1fr;
+            }
+            
+            .actions-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .modal-content {
+                margin: 10% auto;
+                padding: 20px;
+                width: 95%;
+            }
+        }
+
+        /* Loading States */
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .spinner {
+            border: 2px solid #f3f4f6;
+            border-top: 2px solid #3b82f6;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Notifications */
+        .notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 15px 20px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 500;
+            z-index: 1002;
+            display: none;
+        }
+
+        .notification.success {
+            background: #10b981;
+        }
+
+        .notification.error {
+            background: #ef4444;
+        }
+
+        .notification.warning {
+            background: #f59e0b;
+        }
+
+        /* New styles for enhanced features */
+        .portfolio-section {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .portfolio-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .portfolio-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: #3b82f6;
+        }
+
+        .portfolio-header i {
+            font-size: 24px;
+        }
+
+        .portfolio-amount {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1e293b;
+            margin-bottom: 10px;
+        }
+
+        .portfolio-details {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 15px;
+        }
+
+        .portfolio-btn {
+            padding: 8px 16px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .portfolio-btn:hover {
+            background: #1d4ed8;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .credit-card-tabs, .insurance-tabs, .mf-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+
+        .tab-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px 8px 0 0;
+            background: #f1f5f9;
+            color: #475569;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .credit-cards-list, .insurance-list, .mf-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .credit-card-item, .insurance-item, .mf-item {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .credit-card-item h4, .insurance-item h4, .mf-item h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .credit-card-item p, .insurance-item p, .mf-item p {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .credit-card-item .card-actions, .insurance-item .insurance-actions, .mf-item .mf-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .credit-card-item .card-actions button, .insurance-item .insurance-actions button, .mf-item .mf-actions button {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .credit-card-item .card-actions button:hover, .insurance-item .insurance-actions button:hover, .mf-item .mf-actions button:hover {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .beneficiary-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .beneficiary-item {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .beneficiary-item h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .beneficiary-item p {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .beneficiary-item .beneficiary-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .beneficiary-item .beneficiary-actions button {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .beneficiary-item .beneficiary-actions button:hover {
+            background: #ef4444;
+            color: white;
+        }
+
+        .limits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .limit-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+        }
+
+        .limit-icon {
+            font-size: 24px;
+            color: #3b82f6;
+        }
+
+        .limit-details h4 {
+            font-size: 14px;
+            font-weight: 500;
+            color: #1e293b;
+            margin-bottom: 5px;
+        }
+
+        .limit-amount {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e293b;
+        }
+
+        .security-status {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #1e293b;
+        }
+
+        .support-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .support-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+        }
+
+        .support-icon {
+            font-size: 24px;
+            color: #3b82f6;
+        }
+
+        .support-details h4 {
+            font-size: 14px;
+            font-weight: 500;
+            color: #1e293b;
+            margin-bottom: 5px;
+        }
+
+        .support-details p {
+            font-size: 12px;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-university"></i>
+                Canara Bank
+            </div>
+            <div class="user-info">
+                <div class="user-avatar" id="userAvatar">U</div>
+                <div class="session-timer" id="sessionTimer">10:00</div>
+                <div class="confidence-score" id="confidenceScoreBox" style="margin-left:20px; font-weight:bold; color:#fff; background:#2563eb; padding:8px 16px; border-radius:20px; display:none;">
+                    Confidence: <span id="confidenceScore">--</span>%
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Security Badge -->
+    <div class="security-badge security-safe" id="securityBadge">
+        <i class="fas fa-shield-alt"></i>
+        <span>Secure Session</span>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Account Overview -->
+        <div class="account-overview">
+            <div class="account-card">
+                <div class="account-type">
+                    <div class="account-icon savings">
+                        <i class="fas fa-piggy-bank"></i>
+                    </div>
+                    <div>
+                        <h3>Savings Account</h3>
+                        <p class="account-number">XXXX XXXX 1234</p>
+                    </div>
+                </div>
+                <div class="balance-amount">₹25,000.00</div>
+                <div class="account-actions">
+                    <button class="action-btn primary-btn" onclick="showModal('transferModal')">
+                        <i class="fas fa-exchange-alt"></i> Transfer
+                    </button>
+                    <button class="action-btn secondary-btn" onclick="showModal('statementModal')">
+                        <i class="fas fa-file-alt"></i> Statement
+                    </button>
+                </div>
+            </div>
+
+            <div class="account-card">
+                <div class="account-type">
+                    <div class="account-icon current">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div>
+                        <h3>Current Account</h3>
+                        <p class="account-number">XXXX XXXX 5678</p>
+                    </div>
+                </div>
+                <div class="balance-amount">₹1,50,000.00</div>
+                <div class="account-actions">
+                    <button class="action-btn primary-btn" onclick="showModal('transferModal')">
+                        <i class="fas fa-exchange-alt"></i> Transfer
+                    </button>
+                    <button class="action-btn secondary-btn" onclick="showModal('statementModal')">
+                        <i class="fas fa-file-alt"></i> Statement
+                    </button>
+                </div>
+            </div>
+
+            <div class="account-card">
+                <div class="account-type">
+                    <div class="account-icon fd">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div>
+                        <h3>Fixed Deposits</h3>
+                        <p class="account-number">3 Active FDs</p>
+                    </div>
+                </div>
+                <div class="balance-amount">₹5,00,000.00</div>
+                <div class="account-actions">
+                    <button class="action-btn primary-btn" onclick="showModal('fdModal')">
+                        <i class="fas fa-plus"></i> New FD
+                    </button>
+                    <button class="action-btn secondary-btn" onclick="showModal('fdListModal')">
+                        <i class="fas fa-list"></i> View All
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <h2 class="section-title">Quick Actions</h2>
+            <div class="actions-grid">
+                <div class="action-item" onclick="showModal('transferModal')">
+                    <div class="action-icon transfer">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div class="action-label">Money Transfer</div>
+                </div>
+                <div class="action-item" onclick="showModal('upiModal')">
+                    <div class="action-icon upi">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="action-label">UPI Payment</div>
+                </div>
+                <div class="action-item" onclick="showModal('qrModal')">
+                    <div class="action-icon qr">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <div class="action-label">Scan & Pay</div>
+                </div>
+                <div class="action-item" onclick="showModal('fdModal')">
+                    <div class="action-icon fd">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="action-label">Fixed Deposit</div>
+                </div>
+                <div class="action-item" onclick="showModal('statementModal')">
+                    <div class="action-icon statement">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="action-label">Account Statement</div>
+                </div>
+                <div class="action-item" onclick="showModal('beneficiaryModal')">
+                    <div class="action-icon beneficiary">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="action-label">Manage Beneficiaries</div>
+                </div>
+                <div class="action-item" onclick="showModal('loanModal')">
+                    <div class="action-icon loan">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <div class="action-label">Apply for Loan</div>
+                </div>
+                <div class="action-item" onclick="showModal('creditCardModal')">
+                    <div class="action-icon credit-card">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <div class="action-label">Credit Card</div>
+                </div>
+                <div class="action-item" onclick="showModal('insuranceModal')">
+                    <div class="action-icon insurance">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="action-label">Insurance</div>
+                </div>
+                <div class="action-item" onclick="showModal('mutualFundModal')">
+                    <div class="action-icon mutual-fund">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <div class="action-label">Mutual Funds</div>
+                </div>
+                <div class="action-item" onclick="showModal('limitsModal')">
+                    <div class="action-icon limits">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="action-label">Transaction Limits</div>
+                </div>
+                <div class="action-item" onclick="showModal('supportModal')">
+                    <div class="action-icon support">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <div class="action-label">24/7 Support</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Investment Portfolio -->
+        <div class="portfolio-section">
+            <h2 class="section-title">Investment Portfolio</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-card">
+                    <div class="portfolio-header">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Fixed Deposits</h3>
+                    </div>
+                    <div class="portfolio-amount">₹5,00,000</div>
+                    <div class="portfolio-details">
+                        <span>3 Active FDs</span>
+                        <span>Avg. Rate: 7.0%</span>
+                    </div>
+                    <button class="portfolio-btn" onclick="showModal('fdModal')">View Details</button>
+                </div>
+                
+                <div class="portfolio-card">
+                    <div class="portfolio-header">
+                        <i class="fas fa-chart-bar"></i>
+                        <h3>Mutual Funds</h3>
+                    </div>
+                    <div class="portfolio-amount">₹2,50,000</div>
+                    <div class="portfolio-details">
+                        <span>5 Funds</span>
+                        <span>+12.5% YTD</span>
+                    </div>
+                    <button class="portfolio-btn" onclick="showModal('mutualFundModal')">View Details</button>
+                </div>
+                
+                <div class="portfolio-card">
+                    <div class="portfolio-header">
+                        <i class="fas fa-credit-card"></i>
+                        <h3>Credit Cards</h3>
+                    </div>
+                    <div class="portfolio-amount">₹1,00,000</div>
+                    <div class="portfolio-details">
+                        <span>2 Cards</span>
+                        <span>Available Limit</span>
+                    </div>
+                    <button class="portfolio-btn" onclick="showModal('creditCardModal')">View Details</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Transactions -->
+        <div class="transactions-section">
+            <div class="transactions-header">
+                <h2 class="section-title">Recent Transactions</h2>
+                <a href="#" class="view-all">View All</a>
+            </div>
+            <div class="transaction-list" id="transactionList">
+                <!-- Transactions will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced Modals -->
+    
+    <!-- Beneficiary Management Modal -->
+    <div id="beneficiaryModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('beneficiaryModal')">&times;</span>
+            <h2 class="modal-title">Manage Beneficiaries</h2>
+            <div class="beneficiary-tabs">
+                <button class="tab-btn active" onclick="switchTab('beneficiaryList')">My Beneficiaries</button>
+                <button class="tab-btn" onclick="switchTab('addBeneficiary')">Add New</button>
+            </div>
+            
+            <div id="beneficiaryList" class="tab-content active">
+                <div class="beneficiary-list" id="beneficiaryListContent">
+                    <!-- Beneficiaries will be loaded here -->
+                </div>
+            </div>
+            
+            <div id="addBeneficiary" class="tab-content">
+                <form id="beneficiaryForm">
+                    <div class="form-group">
+                        <label>Beneficiary Name</label>
+                        <input type="text" placeholder="Enter full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Account Number</label>
+                        <input type="text" placeholder="Enter account number" required>
+                    </div>
+                    <div class="form-group">
+                        <label>IFSC Code</label>
+                        <input type="text" placeholder="Enter IFSC code" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Bank Name</label>
+                        <input type="text" placeholder="Enter bank name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Account Type</label>
+                        <select required>
+                            <option value="">Select type</option>
+                            <option value="savings">Savings</option>
+                            <option value="current">Current</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="submit-btn">Add Beneficiary</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loan Application Modal -->
+    <div id="loanModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loanModal')">&times;</span>
+            <h2 class="modal-title">Apply for Loan</h2>
+            <form id="loanForm">
+                <div class="form-group">
+                    <label>Loan Type</label>
+                    <select id="loanType" required>
+                        <option value="">Select loan type</option>
+                        <option value="personal">Personal Loan (12.5%)</option>
+                        <option value="home">Home Loan (8.5%)</option>
+                        <option value="car">Car Loan (10.5%)</option>
+                        <option value="education">Education Loan (9.5%)</option>
+                        <option value="business">Business Loan (13.5%)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Loan Amount</label>
+                    <input type="number" placeholder="Enter amount" min="10000" required>
+                </div>
+                <div class="form-group">
+                    <label>Tenure (Months)</label>
+                    <select required>
+                        <option value="">Select tenure</option>
+                        <option value="12">12 Months</option>
+                        <option value="24">24 Months</option>
+                        <option value="36">36 Months</option>
+                        <option value="60">60 Months</option>
+                        <option value="84">84 Months</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Purpose</label>
+                    <textarea placeholder="Describe loan purpose"></textarea>
+                </div>
+                <div class="loan-summary" id="loanSummary" style="display: none;">
+                    <h4>Loan Summary</h4>
+                    <div class="summary-item">
+                        <span>EMI Amount:</span>
+                        <span id="emiAmount">₹0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Interest Rate:</span>
+                        <span id="interestRate">0%</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Total Interest:</span>
+                        <span id="totalInterest">₹0</span>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">Apply for Loan</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Credit Card Modal -->
+    <div id="creditCardModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('creditCardModal')">&times;</span>
+            <h2 class="modal-title">Credit Cards</h2>
+            <div class="credit-card-tabs">
+                <button class="tab-btn active" onclick="switchTab('myCards')">My Cards</button>
+                <button class="tab-btn" onclick="switchTab('applyCard')">Apply New</button>
+            </div>
+            
+            <div id="myCards" class="tab-content active">
+                <div class="credit-cards-list" id="creditCardsList">
+                    <!-- Credit cards will be loaded here -->
+                </div>
+            </div>
+            
+            <div id="applyCard" class="tab-content">
+                <form id="creditCardForm">
+                    <div class="form-group">
+                        <label>Card Type</label>
+                        <select required>
+                            <option value="">Select card type</option>
+                            <option value="classic">Classic Card</option>
+                            <option value="gold">Gold Card</option>
+                            <option value="platinum">Platinum Card</option>
+                            <option value="signature">Signature Card</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Requested Credit Limit</label>
+                        <input type="number" placeholder="Enter amount" min="10000" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Apply for Card</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Insurance Modal -->
+    <div id="insuranceModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('insuranceModal')">&times;</span>
+            <h2 class="modal-title">Insurance Products</h2>
+            <div class="insurance-tabs">
+                <button class="tab-btn active" onclick="switchTab('myPolicies')">My Policies</button>
+                <button class="tab-btn" onclick="switchTab('buyInsurance')">Buy Insurance</button>
+            </div>
+            
+            <div id="myPolicies" class="tab-content active">
+                <div class="insurance-list" id="insuranceList">
+                    <!-- Insurance policies will be loaded here -->
+                </div>
+            </div>
+            
+            <div id="buyInsurance" class="tab-content">
+                <form id="insuranceForm">
+                    <div class="form-group">
+                        <label>Insurance Type</label>
+                        <select required>
+                            <option value="">Select type</option>
+                            <option value="life">Life Insurance</option>
+                            <option value="health">Health Insurance</option>
+                            <option value="motor">Motor Insurance</option>
+                            <option value="home">Home Insurance</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Coverage Amount</label>
+                        <input type="number" placeholder="Enter coverage amount" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Premium Amount</label>
+                        <input type="number" placeholder="Enter premium amount" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Buy Insurance</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mutual Fund Modal -->
+    <div id="mutualFundModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('mutualFundModal')">&times;</span>
+            <h2 class="modal-title">Mutual Funds</h2>
+            <div class="mf-tabs">
+                <button class="tab-btn active" onclick="switchTab('myInvestments')">My Investments</button>
+                <button class="tab-btn" onclick="switchTab('investNow')">Invest Now</button>
+            </div>
+            
+            <div id="myInvestments" class="tab-content active">
+                <div class="mf-list" id="mfList">
+                    <!-- Mutual fund investments will be loaded here -->
+                </div>
+            </div>
+            
+            <div id="investNow" class="tab-content">
+                <form id="mfForm">
+                    <div class="form-group">
+                        <label>Fund Name</label>
+                        <select required>
+                            <option value="">Select fund</option>
+                            <option value="hdfc_balanced">HDFC Balanced Advantage Fund</option>
+                            <option value="sbi_bluechip">SBI Bluechip Fund</option>
+                            <option value="icici_tech">ICICI Prudential Technology Fund</option>
+                            <option value="axis_midcap">Axis Midcap Fund</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Investment Amount</label>
+                        <input type="number" placeholder="Enter amount" min="500" required>
+                    </div>
+                    <div class="form-group">
+                        <label>SIP Frequency</label>
+                        <select required>
+                            <option value="monthly">Monthly</option>
+                            <option value="quarterly">Quarterly</option>
+                            <option value="yearly">Yearly</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="submit-btn">Start Investment</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Transaction Limits Modal -->
+    <div id="limitsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('limitsModal')">&times;</span>
+            <h2 class="modal-title">Transaction Limits</h2>
+            <div class="limits-grid">
+                <div class="limit-item">
+                    <div class="limit-icon">
+                        <i class="fas fa-calendar-day"></i>
+                    </div>
+                    <div class="limit-details">
+                        <h4>Daily Limit</h4>
+                        <div class="limit-amount" id="dailyLimit">₹50,000</div>
+                    </div>
+                </div>
+                <div class="limit-item">
+                    <div class="limit-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div class="limit-details">
+                        <h4>Per Transaction</h4>
+                        <div class="limit-amount" id="transactionLimit">₹1,00,000</div>
+                    </div>
+                </div>
+                <div class="limit-item">
+                    <div class="limit-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="limit-details">
+                        <h4>UPI Limit</h4>
+                        <div class="limit-amount">₹1,00,000</div>
+                    </div>
+                </div>
+                <div class="limit-item">
+                    <div class="limit-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <div class="limit-details">
+                        <h4>NEFT Limit</h4>
+                        <div class="limit-amount">₹10,00,000</div>
+                    </div>
+                </div>
+                <div class="limit-item">
+                    <div class="limit-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="limit-details">
+                        <h4>RTGS Limit</h4>
+                        <div class="limit-amount">₹20,00,000</div>
+                    </div>
+                </div>
+            </div>
+            <div class="security-status" id="securityStatus">
+                <i class="fas fa-shield-alt"></i>
+                <span>Your account is secure</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Support Modal -->
+    <div id="supportModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('supportModal')">&times;</span>
+            <h2 class="modal-title">24/7 Customer Support</h2>
+            <div class="support-options">
+                <div class="support-item">
+                    <div class="support-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="support-details">
+                        <h4>Toll Free</h4>
+                        <p>1800-425-0018</p>
+                    </div>
+                </div>
+                <div class="support-item">
+                    <div class="support-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="support-details">
+                        <h4>Live Chat</h4>
+                        <p>Available 24/7</p>
+                    </div>
+                </div>
+                <div class="support-item">
+                    <div class="support-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="support-details">
+                        <h4>Email Support</h4>
+                        <p>support@canarabank.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Transfer Modal -->
+    <div id="transferModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('transferModal')">&times;</span>
+            <h2 class="modal-title">Money Transfer</h2>
+            <form id="transferForm">
+                <div class="form-group">
+                    <label>From Account</label>
+                    <select name="fromAccount" required>
+                        <option value="">Select Account</option>
+                        <option value="savings">Savings Account (XXXX 1234)</option>
+                        <option value="current">Current Account (XXXX 5678)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Transfer Type</label>
+                    <select id="transferType" name="transferType" required>
+                        <option value="">Select Type</option>
+                        <option value="neft">NEFT</option>
+                        <option value="rtgs">RTGS</option>
+                        <option value="imps">IMPS</option>
+                        <option value="upi">UPI</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>To Account Number</label>
+                    <input type="text" name="toAccount" placeholder="Enter account number" required>
+                </div>
+                <div class="form-group">
+                    <label>IFSC Code</label>
+                    <input type="text" name="ifsc" placeholder="Enter IFSC code" required>
+                </div>
+                <div class="form-group">
+                    <label>Beneficiary Name</label>
+                    <input type="text" name="beneficiaryName" placeholder="Enter beneficiary name" required>
+                </div>
+                <div class="form-group">
+                    <label>Amount</label>
+                    <input type="number" name="amount" placeholder="Enter amount" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label>Remarks (Optional)</label>
+                    <textarea name="description" placeholder="Enter remarks"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">
+                    <span class="spinner" style="display: none;"></span>
+                    Proceed to Transfer
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- UPI Modal -->
+    <div id="upiModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('upiModal')">&times;</span>
+            <h2 class="modal-title">UPI Payment</h2>
+            <form id="upiForm">
+                <div class="form-group">
+                    <label>UPI ID</label>
+                    <input type="text" placeholder="Enter UPI ID (e.g., user@bank)" required>
+                </div>
+                <div class="form-group">
+                    <label>Amount</label>
+                    <input type="number" placeholder="Enter amount" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label>Remarks (Optional)</label>
+                    <textarea placeholder="Enter remarks"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">
+                    <span class="spinner" style="display: none;"></span>
+                    Send Payment
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- QR Scanner Modal -->
+    <div id="qrModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('qrModal')">&times;</span>
+            <h2 class="modal-title">Scan & Pay</h2>
+            <div class="qr-scanner" id="qrScanner">
+                <div class="scanner-placeholder">
+                    <div class="scanner-icon">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <p>Click to start scanning</p>
+                </div>
+            </div>
+            <button class="submit-btn" onclick="startQRScanner()">
+                <i class="fas fa-camera"></i> Start Scanner
+            </button>
+        </div>
+    </div>
+
+    <!-- Fixed Deposit Modal -->
+    <div id="fdModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('fdModal')">&times;</span>
+            <h2 class="modal-title">Create Fixed Deposit</h2>
+            <form id="fdForm">
+                <div class="form-group">
+                    <label>Principal Amount</label>
+                    <input type="number" placeholder="Enter amount" min="1000" required>
+                </div>
+                <div class="form-group">
+                    <label>Tenure (Months)</label>
+                    <select required>
+                        <option value="">Select Tenure</option>
+                        <option value="12">12 Months (6.5%)</option>
+                        <option value="24">24 Months (7.0%)</option>
+                        <option value="36">36 Months (7.5%)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Interest Payout</label>
+                    <select required>
+                        <option value="">Select Option</option>
+                        <option value="monthly">Monthly</option>
+                        <option value="quarterly">Quarterly</option>
+                        <option value="maturity">At Maturity</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">
+                    <span class="spinner" style="display: none;"></span>
+                    Create Fixed Deposit
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
+
+    <script>
+        // Global variables
+        let sessionTimer;
+        let sessionTimeLeft = 600; // 10 minutes in seconds
+
+        // Initialize the dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeDashboard();
+            startSessionTimer();
+            loadTransactions();
+            showConfidenceScore(); // Show confidence score after login
+        });
+
+        function initializeDashboard() {
+            // Set user avatar
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            if (user.name) {
+                document.getElementById('userAvatar').textContent = user.name.charAt(0).toUpperCase();
+            }
+        }
+
+        function startSessionTimer() {
+            sessionTimer = setInterval(() => {
+                sessionTimeLeft--;
+                const minutes = Math.floor(sessionTimeLeft / 60);
+                const seconds = sessionTimeLeft % 60;
+                document.getElementById('sessionTimer').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (sessionTimeLeft <= 0) {
+                    clearInterval(sessionTimer);
+                    showNotification('Session expired. Please login again.', 'warning');
+                    setTimeout(() => {
+                        window.location.href = '/login';
+                    }, 2000);
+                } else if (sessionTimeLeft <= 60) {
+                    document.getElementById('securityBadge').className = 'security-badge security-warning';
+                    document.getElementById('securityBadge').innerHTML = '<i class="fas fa-exclamation-triangle"></i><span>Session Expiring</span>';
+                }
+            }, 1000);
+        }
+
+        function loadTransactions() {
+            // Simulate loading transactions
+            const transactions = [
+                {
+                    type: 'credit',
+                    amount: 50000,
+                    description: 'Salary Credit',
+                    date: '2024-01-15',
+                    time: '09:30 AM'
+                },
+                {
+                    type: 'debit',
+                    amount: 2500,
+                    description: 'UPI Payment to John',
+                    date: '2024-01-14',
+                    time: '02:15 PM'
+                },
+                {
+                    type: 'debit',
+                    amount: 15000,
+                    description: 'NEFT Transfer to ABC Bank',
+                    date: '2024-01-13',
+                    time: '11:45 AM'
+                },
+                {
+                    type: 'credit',
+                    amount: 10000,
+                    description: 'Refund from Amazon',
+                    date: '2024-01-12',
+                    time: '04:20 PM'
+                }
+            ];
+
+            const transactionList = document.getElementById('transactionList');
+            transactionList.innerHTML = transactions.map(txn => `
+                <div class="transaction-item">
+                    <div class="transaction-left">
+                        <div class="transaction-icon ${txn.type}">
+                            <i class="fas fa-${txn.type === 'credit' ? 'arrow-down' : 'arrow-up'}"></i>
+                        </div>
+                        <div class="transaction-details">
+                            <h4>${txn.description}</h4>
+                            <p>${txn.date} at ${txn.time}</p>
+                        </div>
+                    </div>
+                    <div class="transaction-amount amount-${txn.type}">
+                        ${txn.type === 'credit' ? '+' : '-'}₹${txn.amount.toLocaleString()}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function startQRScanner() {
+            const scanner = document.getElementById('qrScanner');
+            scanner.classList.add('active');
+            scanner.innerHTML = `
+                <div class="scanner-placeholder">
+                    <div class="scanner-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <p>Scanner Active</p>
+                    <p style="font-size: 12px; margin-top: 10px;">Point camera at QR code</p>
+                </div>
+            `;
+        }
+
+        // Helper function to get cookie value
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return null;
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+
+        // Form submissions
+        document.getElementById('transferForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const submitBtn = this.querySelector('.submit-btn');
+            const spinner = submitBtn.querySelector('.spinner');
+            
+            submitBtn.disabled = true;
+            spinner.style.display = 'inline-block';
+            
+            // Get form data
+            const formData = new FormData(this);
+            const transferData = {
+                amount: parseFloat(formData.get('amount')),
+                to_account: formData.get('toAccount'),
+                upi_id: formData.get('upiId'),
+                description: formData.get('description') || 'Transfer via ' + formData.get('transferType')
+            };
+            
+            // Make real API call to backend
+            console.log('Sending transfer request:', transferData);
+            fetch('/api/v2/banking/transfer', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + getCookie('access_token')
+                },
+                body: JSON.stringify(transferData)
+            })
+            .then(response => {
+                console.log('Response status:', response.status);
+                console.log('Response headers:', response.headers);
+                if (!response.ok) {
+                    return response.json().then(errorData => {
+                        console.log('Error data:', errorData);
+                        throw new Error(JSON.stringify(errorData));
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response data:', data);
+                if (data.status === 'security_violation') {
+                    // Security violation - user logged out
+                    showNotification('Security Alert: ' + data.message, 'error');
+                    showNotification('You have been logged out for security reasons. Please login again.', 'warning');
+                    setTimeout(() => {
+                        window.location.href = '/login';
+                    }, 3000);
+                } else if (data.status === 'success') {
+                    // Transfer successful
+                    showNotification('Transfer completed successfully! Transaction ID: ' + data.transaction_id, 'success');
+                    closeModal('transferModal');
+                    this.reset();
+                } else {
+                    // Other error
+                    showNotification('Transfer failed: ' + (data.detail || 'Unknown error'), 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Transfer error:', error);
+                try {
+                    // Try to parse error message if it's JSON
+                    const errorData = JSON.parse(error.message);
+                    let errorMessage = 'Unknown error';
+                    if (errorData.detail) {
+                        if (Array.isArray(errorData.detail)) {
+                            errorMessage = errorData.detail.map(e => e.msg + (e.loc ? ` [${e.loc.join(' > ')}]` : '')).join('; ');
+                        } else {
+                            errorMessage = errorData.detail;
+                        }
+                    } else if (errorData.message) {
+                        errorMessage = errorData.message;
+                    } else if (typeof errorData === 'string') {
+                        errorMessage = errorData;
+                    } else if (errorData && typeof errorData === 'object') {
+                        errorMessage = JSON.stringify(errorData);
+                    }
+                    if (errorData.status === 'security_violation') {
+                        showNotification('Security Alert: ' + errorData.message, 'error');
+                        showNotification('You have been logged out for security reasons. Please login again.', 'warning');
+                        setTimeout(() => {
+                            window.location.href = '/login';
+                        }, 3000);
+                    } else {
+                        showNotification('Transfer failed: ' + errorMessage, 'error');
+                    }
+                } catch (parseError) {
+                    // If not JSON, show generic error
+                    showNotification('Transfer failed: ' + error.message, 'error');
+                }
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                spinner.style.display = 'none';
+            });
+        });
+
+        document.getElementById('upiForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const submitBtn = this.querySelector('.submit-btn');
+            const spinner = submitBtn.querySelector('.spinner');
+            
+            submitBtn.disabled = true;
+            spinner.style.display = 'inline-block';
+            
+            setTimeout(() => {
+                showNotification('UPI payment sent successfully!', 'success');
+                closeModal('upiModal');
+                submitBtn.disabled = false;
+                spinner.style.display = 'none';
+                this.reset();
+            }, 2000);
+        });
+
+        document.getElementById('fdForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const submitBtn = this.querySelector('.submit-btn');
+            const spinner = submitBtn.querySelector('.spinner');
+            
+            submitBtn.disabled = true;
+            spinner.style.display = 'inline-block';
+            
+            setTimeout(() => {
+                showNotification('Fixed Deposit created successfully!', 'success');
+                closeModal('fdModal');
+                submitBtn.disabled = false;
+                spinner.style.display = 'none';
+                this.reset();
+            }, 2000);
+        });
+
+        // Enhanced form submissions for new features
+        document.getElementById('beneficiaryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const submitBtn = this.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                showNotification('Beneficiary added successfully!', 'success');
+                closeModal('beneficiaryModal');
+                submitBtn.disabled = false;
+                this.reset();
+                loadBeneficiaries();
+            }, 2000);
+        });
+
+        document.getElementById('loanForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const submitBtn = this.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                showNotification('Loan application submitted successfully!', 'success');
+                closeModal('loanModal');
+                submitBtn.disabled = false;
+                this.reset();
+                document.getElementById('loanSummary').style.display = 'none';
+            }, 2000);
+        });
+
+        document.getElementById('creditCardForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const submitBtn = this.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                showNotification('Credit card application submitted!', 'success');
+                closeModal('creditCardModal');
+                submitBtn.disabled = false;
+                this.reset();
+            }, 2000);
+        });
+
+        document.getElementById('insuranceForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const submitBtn = this.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                showNotification('Insurance policy purchased successfully!', 'success');
+                closeModal('insuranceModal');
+                submitBtn.disabled = false;
+                this.reset();
+            }, 2000);
+        });
+
+        document.getElementById('mfForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const submitBtn = this.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                showNotification('Mutual fund investment started!', 'success');
+                closeModal('mutualFundModal');
+                submitBtn.disabled = false;
+                this.reset();
+            }, 2000);
+        });
+
+        // Tab switching functionality
+        function switchTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            // Remove active class from all tab buttons
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            
+            // Load data for specific tabs
+            if (tabName === 'beneficiaryList') {
+                loadBeneficiaries();
+            } else if (tabName === 'myCards') {
+                loadCreditCards();
+            } else if (tabName === 'myPolicies') {
+                loadInsurance();
+            } else if (tabName === 'myInvestments') {
+                loadMutualFunds();
+            }
+        }
+
+        // Load data functions
+        function loadBeneficiaries() {
+            const beneficiaryList = document.getElementById('beneficiaryListContent');
+            const beneficiaries = [
+                { name: 'John Doe', account: 'XXXX 5678', bank: 'HDFC Bank', verified: true },
+                { name: 'Jane Smith', account: 'XXXX 9012', bank: 'ICICI Bank', verified: false }
+            ];
+            
+            beneficiaryList.innerHTML = beneficiaries.map(b => `
+                <div class="beneficiary-item">
+                    <div>
+                        <h4>${b.name}</h4>
+                        <p>${b.account} | ${b.bank}</p>
+                    </div>
+                    <div class="beneficiary-actions">
+                        <button onclick="transferToBeneficiary('${b.name}')">Transfer</button>
+                        <button onclick="deleteBeneficiary('${b.name}')">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadCreditCards() {
+            const cardsList = document.getElementById('creditCardsList');
+            const cards = [
+                { type: 'Classic', number: '**** 1234', limit: '₹50,000', available: '₹35,000' },
+                { type: 'Gold', number: '**** 5678', limit: '₹1,00,000', available: '₹75,000' }
+            ];
+            
+            cardsList.innerHTML = cards.map(c => `
+                <div class="credit-card-item">
+                    <div>
+                        <h4>${c.type} Card</h4>
+                        <p>${c.number} | Limit: ${c.limit}</p>
+                    </div>
+                    <div class="card-actions">
+                        <button onclick="viewCardDetails('${c.number}')">Details</button>
+                        <button onclick="blockCard('${c.number}')">Block</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadInsurance() {
+            const insuranceList = document.getElementById('insuranceList');
+            const policies = [
+                { type: 'Life Insurance', coverage: '₹50,00,000', premium: '₹5,000/month' },
+                { type: 'Health Insurance', coverage: '₹10,00,000', premium: '₹2,000/month' }
+            ];
+            
+            insuranceList.innerHTML = policies.map(p => `
+                <div class="insurance-item">
+                    <div>
+                        <h4>${p.type}</h4>
+                        <p>Coverage: ${p.coverage} | Premium: ${p.premium}</p>
+                    </div>
+                    <div class="insurance-actions">
+                        <button onclick="viewPolicy('${p.type}')">View</button>
+                        <button onclick="renewPolicy('${p.type}')">Renew</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadMutualFunds() {
+            const mfList = document.getElementById('mfList');
+            const investments = [
+                { fund: 'HDFC Balanced Advantage', amount: '₹50,000', returns: '+8.5%' },
+                { fund: 'SBI Bluechip Fund', amount: '₹75,000', returns: '+12.3%' }
+            ];
+            
+            mfList.innerHTML = investments.map(m => `
+                <div class="mf-item">
+                    <div>
+                        <h4>${m.fund}</h4>
+                        <p>Investment: ${m.amount} | Returns: ${m.returns}</p>
+                    </div>
+                    <div class="mf-actions">
+                        <button onclick="viewFund('${m.fund}')">Details</button>
+                        <button onclick="redeemFund('${m.fund}')">Redeem</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Loan calculator
+        document.getElementById('loanType').addEventListener('change', function() {
+            const loanAmount = document.querySelector('#loanForm input[type="number"]').value;
+            const tenure = document.querySelector('#loanForm select:last-of-type').value;
+            
+            if (loanAmount && tenure) {
+                calculateLoanEMI();
+            }
+        });
+
+        function calculateLoanEMI() {
+            const loanType = document.getElementById('loanType').value;
+            const amount = parseFloat(document.querySelector('#loanForm input[type="number"]').value);
+            const tenure = parseInt(document.querySelector('#loanForm select:last-of-type').value);
+            
+            const interestRates = {
+                'personal': 12.5,
+                'home': 8.5,
+                'car': 10.5,
+                'education': 9.5,
+                'business': 13.5
+            };
+            
+            const rate = interestRates[loanType] || 12.0;
+            const monthlyRate = rate / 12 / 100;
+            const emi = (amount * monthlyRate * Math.pow(1 + monthlyRate, tenure)) / (Math.pow(1 + monthlyRate, tenure) - 1);
+            const totalInterest = (emi * tenure) - amount;
+            
+            document.getElementById('emiAmount').textContent = `₹${Math.round(emi).toLocaleString()}`;
+            document.getElementById('interestRate').textContent = `${rate}%`;
+            document.getElementById('totalInterest').textContent = `₹${Math.round(totalInterest).toLocaleString()}`;
+            document.getElementById('loanSummary').style.display = 'block';
+        }
+
+        // Load transaction limits
+        function loadTransactionLimits() {
+            // In real app, this would fetch from API
+            const limits = {
+                daily: 50000,
+                transaction: 100000,
+                isFlagged: false
+            };
+            
+            document.getElementById('dailyLimit').textContent = `₹${limits.daily.toLocaleString()}`;
+            document.getElementById('transactionLimit').textContent = `₹${limits.transaction.toLocaleString()}`;
+            
+            if (limits.isFlagged) {
+                document.getElementById('securityStatus').innerHTML = '<i class="fas fa-exclamation-triangle"></i><span>Account flagged - Reduced limits applied</span>';
+                document.getElementById('securityStatus').style.background = '#fef3c7';
+                document.getElementById('securityStatus').style.color = '#92400e';
+            }
+        }
+
+        // Action functions
+        function transferToBeneficiary(name) {
+            showModal('transferModal');
+            showNotification(`Transfer to ${name} initiated`, 'success');
+        }
+
+        function deleteBeneficiary(name) {
+            if (confirm(`Are you sure you want to delete ${name}?`)) {
+                showNotification(`${name} removed from beneficiaries`, 'success');
+                loadBeneficiaries();
+            }
+        }
+
+        function viewCardDetails(number) {
+            showNotification(`Card details for ${number}`, 'success');
+        }
+
+        function blockCard(number) {
+            if (confirm(`Are you sure you want to block card ${number}?`)) {
+                showNotification(`Card ${number} blocked successfully`, 'success');
+                loadCreditCards();
+            }
+        }
+
+        function viewPolicy(type) {
+            showNotification(`Viewing ${type} policy details`, 'success');
+        }
+
+        function renewPolicy(type) {
+            showNotification(`${type} renewal initiated`, 'success');
+        }
+
+        function viewFund(fund) {
+            showNotification(`Viewing ${fund} details`, 'success');
+        }
+
+        function redeemFund(fund) {
+            if (confirm(`Are you sure you want to redeem ${fund}?`)) {
+                showNotification(`${fund} redemption initiated`, 'success');
+            }
+        }
+
+        // Initialize enhanced features
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeDashboard();
+            startSessionTimer();
+            loadTransactions();
+            loadTransactionLimits();
+        });
+
+        // Show confidence score after login
+        function showConfidenceScore() {
+            fetch('/api/v2/user/risk-profile', {
+                headers: { 'Authorization': 'Bearer ' + getCookie('access_token') }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data && typeof data.confidence === 'number') {
+                    document.getElementById('confidenceScore').textContent = (data.confidence * 100).toFixed(1);
+                    document.getElementById('confidenceScoreBox').style.display = 'inline-block';
+                }
+            });
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

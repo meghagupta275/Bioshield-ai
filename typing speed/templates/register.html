@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Registration - Secure Banking</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .registration-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .card-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .card-content {
+            padding: 40px;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .form-section h3 {
+            color: #2563eb;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #374151;
+        }
+
+        .form-group input, .form-group select {
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        .behavioral-test-section {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 20px 0;
+            border: 2px solid #e5e7eb;
+        }
+
+        .test-progress {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .test-step {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            margin: 0 5px;
+            border-radius: 8px;
+            background: #e5e7eb;
+            color: #6b7280;
+            position: relative;
+        }
+
+        .test-step.active {
+            background: #2563eb;
+            color: white;
+        }
+
+        .test-step.completed {
+            background: #059669;
+            color: white;
+        }
+
+        .test-step::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -10px;
+            width: 20px;
+            height: 2px;
+            background: #e5e7eb;
+            transform: translateY(-50%);
+        }
+
+        .test-step:last-child::after {
+            display: none;
+        }
+
+        .test-content {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .test-text {
+            font-size: 1.2rem;
+            color: #374151;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            border: 2px solid #e5e7eb;
+        }
+
+        .typing-area {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 16px;
+            resize: vertical;
+            margin-bottom: 20px;
+        }
+
+        .typing-area:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        .test-timer {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2563eb;
+            margin: 20px 0;
+        }
+
+        .test-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #e5e7eb;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2563eb;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-top: 5px;
+        }
+
+        .test-instructions {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .test-instructions h4 {
+            color: #1e40af;
+            margin-bottom: 10px;
+        }
+
+        .test-instructions ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .test-instructions li {
+            padding: 5px 0;
+            color: #374151;
+        }
+
+        .test-instructions li::before {
+            content: '✓';
+            color: #059669;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-success {
+            background: #059669;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #047857;
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+
+        .btn:disabled {
+            background: #d1d5db;
+            cursor: not-allowed;
+        }
+
+        .status-message {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .status-success {
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+        .status-warning {
+            background: #fef3c7;
+            color: #92400e;
+            border: 1px solid #fde68a;
+        }
+
+        .status-error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .status-info {
+            background: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #bfdbfe;
+        }
+
+        .behavioral-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            background: #2563eb;
+            color: white;
+        }
+
+        .behavioral-indicator.recording {
+            background: #dc2626;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .tap-test-area {
+            background: #f3f4f6;
+            border: 2px dashed #d1d5db;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            margin: 20px 0;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tap-test-area.active {
+            border-color: #2563eb;
+            background: #eff6ff;
+        }
+
+        .tap-target {
+            width: 80px;
+            height: 80px;
+            background: #2563eb;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin: 10px;
+        }
+
+        .tap-target:hover {
+            transform: scale(1.1);
+        }
+
+        .tap-target.tapped {
+            background: #059669;
+            transform: scale(0.9);
+        }
+
+        .navigation-test {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .nav-button {
+            padding: 20px;
+            background: #f3f4f6;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .nav-button:hover {
+            background: #eff6ff;
+            border-color: #2563eb;
+        }
+
+        .nav-button.clicked {
+            background: #2563eb;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .card-content {
+                padding: 20px;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .test-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Behavioral Recording Indicator -->
+    <div id="behavioralIndicator" class="behavioral-indicator" onclick="showBehavioralInfo()">
+        🔐
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>🔐 Enhanced Registration</h1>
+            <p>Multi-factor Behavioral Authentication for Secure Banking</p>
+        </div>
+
+        <div class="registration-card">
+            <div class="card-header">
+                <h2>Create Your Secure Account</h2>
+                <p>Complete the behavioral test to establish your unique biometric profile</p>
+            </div>
+
+            <div class="card-content">
+                <!-- Registration Form -->
+                <div class="form-section">
+                    <h3>📝 Account Information</h3>
+                    <form id="registerForm">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" id="username" name="username" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" id="password" name="password" required minlength="8">
+                            </div>
+                            <div class="form-group">
+                                <label for="auth_type">Authentication Type</label>
+                                <select id="auth_type" name="auth_type" required>
+                                    <option value="typing">Typing Pattern</option>
+                                    <option value="tap">Tap Pattern</option>
+                                    <option value="navigation">Navigation Pattern</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Behavioral Test Section -->
+                <div class="behavioral-test-section" id="behavioralTestSection" style="display: none;">
+                    <h3>🧠 Behavioral Biometric Test</h3>
+                    
+                    <!-- Test Progress -->
+                    <div class="test-progress">
+                        <div class="test-step" id="step1">1. Typing</div>
+                        <div class="test-step" id="step2">2. Tap</div>
+                        <div class="test-step" id="step3">3. Navigation</div>
+                        <div class="test-step" id="step4">4. Analysis</div>
+                    </div>
+
+                    <!-- Test Instructions -->
+                    <div class="test-instructions">
+                        <h4>Test Instructions</h4>
+                        <ul>
+                            <li>Complete each test naturally as you would normally interact</li>
+                            <li>Don't try to be perfect - we want your natural behavior</li>
+                            <li>Each test takes 30 seconds</li>
+                            <li>Your data is encrypted and secure</li>
+                        </ul>
+                    </div>
+
+                    <!-- Step 1: Typing Test -->
+                    <div id="typingTest" class="test-content">
+                        <h4>Step 1: Typing Pattern Analysis</h4>
+                        <p>Type the following text naturally. We'll analyze your typing rhythm and speed.</p>
+                        <div class="test-text" id="typingText">
+                            The quick brown fox jumps over the lazy dog. This sentence contains all the letters of the alphabet and is commonly used for typing tests.
+                        </div>
+                        <textarea id="typingArea" class="typing-area" placeholder="Start typing here..." disabled></textarea>
+                        <div class="test-timer" id="typingTimer">Time: 30s</div>
+                        <div class="test-stats" id="typingStats">
+                            <div class="stat-card">
+                                <div class="stat-value" id="typingSpeed">0</div>
+                                <div class="stat-label">WPM</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value" id="typingAccuracy">0%</div>
+                                <div class="stat-label">Accuracy</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value" id="typingConsistency">0%</div>
+                                <div class="stat-label">Consistency</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Tap Test -->
+                    <div id="tapTest" class="test-content" style="display: none;">
+                        <h4>Step 2: Tap Pattern Analysis</h4>
+                        <p>Tap the targets in any order. We'll analyze your tap timing and patterns.</p>
+                        <div class="tap-test-area" id="tapArea">
+                            <div class="tap-target" data-target="1">1</div>
+                            <div class="tap-target" data-target="2">2</div>
+                            <div class="tap-target" data-target="3">3</div>
+                            <div class="tap-target" data-target="4">4</div>
+                            <div class="tap-target" data-target="5">5</div>
+                            <div class="tap-target" data-target="6">6</div>
+                        </div>
+                        <div class="test-timer" id="tapTimer">Time: 30s</div>
+                        <div class="test-stats" id="tapStats">
+                            <div class="stat-card">
+                                <div class="stat-value" id="tapCount">0</div>
+                                <div class="stat-label">Taps</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value" id="tapSpeed">0</div>
+                                <div class="stat-label">Taps/sec</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value" id="tapConsistency">0%</div>
+                                <div class="stat-label">Consistency</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Navigation Test -->
+                    <div id="navigationTest" class="test-content" style="display: none;">
+                        <h4>Step 3: Navigation Pattern Analysis</h4>
+                        <p>Click the buttons in any order. We'll analyze your navigation patterns.</p>
+                        <div class="navigation-test" id="navArea">
+                            <div class="nav-button" data-nav="1">Button A</div>
+                            <div class="nav-button" data-nav="2">Button B</div>
+                            <div class="nav-button" data-nav="3">Button C</div>
+                            <div class="nav-button" data-nav="4">Button D</div>
+                            <div class="nav-button" data-nav="5">Button E</div>
+                            <div class="nav-button" data-nav="6">Button F</div>
+                        </div>
+                        <div class="test-timer" id="navTimer">Time: 30s</div>
+                        <div class="test-stats" id="navStats">
+                            <div class="stat-card">
+                                <div class="stat-value" id="navClicks">0</div>
+                                <div class="stat-label">Clicks</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value" id="navSpeed">0</div>
+                                <div class="stat-label">Clicks/sec</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value" id="navPattern">-</div>
+                                <div class="stat-label">Pattern</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Analysis -->
+                    <div id="analysisTest" class="test-content" style="display: none;">
+                        <h4>Step 4: Behavioral Analysis</h4>
+                        <p>Analyzing your behavioral patterns to create your unique biometric profile...</p>
+                        <div class="test-stats" id="analysisStats">
+                            <div class="stat-card">
+                                <div class="stat-value" id="confidenceScore">0%</div>
+                                <div class="stat-label">Confidence</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value" id="uniquenessScore">0%</div>
+                                <div class="stat-label">Uniqueness</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value" id="qualityScore">0%</div>
+                                <div class="stat-label">Quality</div>
+                            </div>
+                        </div>
+                        <div id="analysisProgress" style="width: 100%; height: 20px; background: #e5e7eb; border-radius: 10px; overflow: hidden; margin: 20px 0;">
+                            <div id="progressBar" style="width: 0%; height: 100%; background: linear-gradient(90deg, #2563eb, #1d4ed8); transition: width 0.3s ease;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Status Messages -->
+                    <div id="testStatus" class="status-message status-info" style="display: none;"></div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div style="text-align: center; margin-top: 30px;">
+                    <button id="startTestBtn" class="btn btn-primary">🚀 Start Behavioral Test</button>
+                    <button id="registerBtn" class="btn btn-success" disabled>✅ Complete Registration</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced Behavioral Test Variables
+        let currentStep = 1;
+        let testActive = false;
+        let typingTimestamps = [];
+        let tapTimestamps = [];
+        let navigationTimestamps = [];
+        let gpsData = {};
+        let testTimer = null;
+        let testDuration = 30; // seconds per test
+        let timeLeft = testDuration;
+
+        // DOM Elements
+        const startTestBtn = document.getElementById('startTestBtn');
+        const registerBtn = document.getElementById('registerBtn');
+        const behavioralTestSection = document.getElementById('behavioralTestSection');
+        const testStatus = document.getElementById('testStatus');
+        const behavioralIndicator = document.getElementById('behavioralIndicator');
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeBehavioralTest();
+            getGPSLocation();
+        });
+
+        function initializeBehavioralTest() {
+            startTestBtn.addEventListener('click', startBehavioralTest);
+            registerBtn.addEventListener('click', submitRegistration);
+            
+            // Initialize typing test
+            const typingArea = document.getElementById('typingArea');
+            typingArea.addEventListener('keydown', recordTyping);
+            
+            // Initialize tap test
+            const tapTargets = document.querySelectorAll('.tap-target');
+            tapTargets.forEach(target => {
+                target.addEventListener('click', recordTap);
+            });
+            
+            // Initialize navigation test
+            const navButtons = document.querySelectorAll('.nav-button');
+            navButtons.forEach(button => {
+                button.addEventListener('click', recordNavigation);
+            });
+        }
+
+        function startBehavioralTest() {
+            testActive = true;
+            currentStep = 1;
+            timeLeft = testDuration;
+            
+            // Reset data
+            typingTimestamps = [];
+            tapTimestamps = [];
+            navigationTimestamps = [];
+            
+            // Show test section
+            behavioralTestSection.style.display = 'block';
+            startTestBtn.disabled = true;
+            registerBtn.disabled = true;
+            
+            // Update UI
+            updateTestProgress();
+            showStep(currentStep);
+            showStatus('Behavioral test started. Complete each step naturally.', 'info');
+            
+            // Start recording indicator
+            behavioralIndicator.classList.add('recording');
+            behavioralIndicator.innerHTML = '🔴';
+            
+            // Start first test
+            startStepTest(currentStep);
+        }
+
+        function startStepTest(step) {
+            timeLeft = testDuration;
+            updateTimer();
+            
+            testTimer = setInterval(() => {
+                timeLeft--;
+                updateTimer();
+                
+                if (timeLeft <= 0) {
+                    endStepTest(step);
+                }
+            }, 1000);
+            
+            // Enable appropriate input
+            if (step === 1) {
+                document.getElementById('typingArea').disabled = false;
+                document.getElementById('typingArea').focus();
+            }
+        }
+
+        function endStepTest(step) {
+            clearInterval(testTimer);
+            
+            // Disable inputs
+            if (step === 1) {
+                document.getElementById('typingArea').disabled = true;
+            }
+            
+            // Calculate and display stats
+            calculateStepStats(step);
+            
+            // Move to next step
+            if (step < 4) {
+                currentStep++;
+                setTimeout(() => {
+                    showStep(currentStep);
+                    startStepTest(currentStep);
+                }, 2000);
+            } else {
+                completeBehavioralTest();
+            }
+        }
+
+        function showStep(step) {
+            // Hide all test content
+            document.querySelectorAll('.test-content').forEach(content => {
+                content.style.display = 'none';
+            });
+            
+            // Show current step
+            if (step === 1) {
+                document.getElementById('typingTest').style.display = 'block';
+            } else if (step === 2) {
+                document.getElementById('tapTest').style.display = 'block';
+            } else if (step === 3) {
+                document.getElementById('navigationTest').style.display = 'block';
+            } else if (step === 4) {
+                document.getElementById('analysisTest').style.display = 'block';
+                runAnalysis();
+            }
+            
+            updateTestProgress();
+        }
+
+        function updateTestProgress() {
+            // Update step indicators
+            for (let i = 1; i <= 4; i++) {
+                const step = document.getElementById(`step${i}`);
+                step.className = 'test-step';
+                
+                if (i < currentStep) {
+                    step.classList.add('completed');
+                } else if (i === currentStep) {
+                    step.classList.add('active');
+                }
+            }
+        }
+
+        function updateTimer() {
+            const timerElements = ['typingTimer', 'tapTimer', 'navTimer'];
+            timerElements.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.textContent = `Time: ${timeLeft}s`;
+                }
+            });
+        }
+
+        // Behavioral Data Recording
+        function recordTyping(event) {
+            if (testActive && currentStep === 1) {
+                typingTimestamps.push(Date.now());
+                updateTypingStats();
+            }
+        }
+
+        function recordTap(event) {
+            if (testActive && currentStep === 2) {
+                tapTimestamps.push(Date.now());
+                event.target.classList.add('tapped');
+                setTimeout(() => {
+                    event.target.classList.remove('tapped');
+                }, 200);
+                updateTapStats();
+            }
+        }
+
+        function recordNavigation(event) {
+            if (testActive && currentStep === 3) {
+                navigationTimestamps.push(Date.now());
+                event.target.classList.add('clicked');
+                setTimeout(() => {
+                    event.target.classList.remove('clicked');
+                }, 200);
+                updateNavigationStats();
+            }
+        }
+
+        // Statistics Calculation
+        function updateTypingStats() {
+            if (typingTimestamps.length > 1) {
+                const intervals = typingTimestamps.slice(1).map((t, i) => t - typingTimestamps[i]);
+                const avgInterval = intervals.reduce((a, b) => a + b, 0) / intervals.length;
+                const wpm = Math.round(60000 / avgInterval);
+                const consistency = calculateConsistency(intervals);
+                
+                document.getElementById('typingSpeed').textContent = wpm;
+                document.getElementById('typingConsistency').textContent = Math.round(consistency) + '%';
+            }
+        }
+
+        function updateTapStats() {
+            if (tapTimestamps.length > 1) {
+                const intervals = tapTimestamps.slice(1).map((t, i) => t - tapTimestamps[i]);
+                const avgInterval = intervals.reduce((a, b) => a + b, 0) / intervals.length;
+                const tapsPerSec = Math.round(1000 / avgInterval * 10) / 10;
+                const consistency = calculateConsistency(intervals);
+                
+                document.getElementById('tapCount').textContent = tapTimestamps.length;
+                document.getElementById('tapSpeed').textContent = tapsPerSec;
+                document.getElementById('tapConsistency').textContent = Math.round(consistency) + '%';
+            }
+        }
+
+        function updateNavigationStats() {
+            if (navigationTimestamps.length > 1) {
+                const intervals = navigationTimestamps.slice(1).map((t, i) => t - navigationTimestamps[i]);
+                const avgInterval = intervals.reduce((a, b) => a + b, 0) / intervals.length;
+                const clicksPerSec = Math.round(1000 / avgInterval * 10) / 10;
+                
+                document.getElementById('navClicks').textContent = navigationTimestamps.length;
+                document.getElementById('navSpeed').textContent = clicksPerSec;
+                document.getElementById('navPattern').textContent = 'Random';
+            }
+        }
+
+        function calculateConsistency(intervals) {
+            if (intervals.length < 2) return 0;
+            const mean = intervals.reduce((a, b) => a + b, 0) / intervals.length;
+            const variance = intervals.reduce((sum, val) => sum + Math.pow(val - mean, 2), 0) / intervals.length;
+            const stdDev = Math.sqrt(variance);
+            return Math.max(0, 100 - (stdDev / mean * 100));
+        }
+
+        function calculateStepStats(step) {
+            if (step === 1) {
+                updateTypingStats();
+            } else if (step === 2) {
+                updateTapStats();
+            } else if (step === 3) {
+                updateNavigationStats();
+            }
+        }
+
+        function runAnalysis() {
+            let progress = 0;
+            const progressBar = document.getElementById('progressBar');
+            
+            const analysisInterval = setInterval(() => {
+                progress += 2;
+                progressBar.style.width = progress + '%';
+                
+                // Update scores
+                const confidenceScore = Math.min(100, progress + Math.random() * 20);
+                const uniquenessScore = Math.min(100, progress + Math.random() * 15);
+                const qualityScore = Math.min(100, progress + Math.random() * 25);
+                
+                document.getElementById('confidenceScore').textContent = Math.round(confidenceScore) + '%';
+                document.getElementById('uniquenessScore').textContent = Math.round(uniquenessScore) + '%';
+                document.getElementById('qualityScore').textContent = Math.round(qualityScore) + '%';
+                
+                if (progress >= 100) {
+                    clearInterval(analysisInterval);
+                    completeAnalysis();
+                }
+            }, 50);
+        }
+
+        function completeAnalysis() {
+            setTimeout(() => {
+                completeBehavioralTest();
+            }, 1000);
+        }
+
+        function completeBehavioralTest() {
+            testActive = false;
+            clearInterval(testTimer);
+            
+            // Stop recording indicator
+            behavioralIndicator.classList.remove('recording');
+            behavioralIndicator.innerHTML = '🔐';
+            
+            // Enable registration
+            registerBtn.disabled = false;
+            startTestBtn.disabled = false;
+            
+            showStatus('Behavioral test completed successfully! You can now register.', 'success');
+        }
+
+        function showStatus(message, type) {
+            const status = document.getElementById('testStatus');
+            status.textContent = message;
+            status.className = `status-message status-${type}`;
+            status.style.display = 'block';
+        }
+
+        function showBehavioralInfo() {
+            const info = `
+                Typing: ${typingTimestamps.length} keystrokes
+                Taps: ${tapTimestamps.length} taps
+                Navigation: ${navigationTimestamps.length} clicks
+                GPS: ${gpsData.lat ? 'Captured' : 'Not available'}
+            `;
+            alert('Behavioral Data Collected:\n' + info);
+        }
+
+        function getGPSLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(pos) {
+                    gpsData = {
+                        lat: pos.coords.latitude,
+                        long: pos.coords.longitude,
+                        accuracy: pos.coords.accuracy
+                    };
+                });
+            }
+        }
+
+        async function submitRegistration() {
+            if (!testActive && typingTimestamps.length > 0) {
+                registerBtn.disabled = true;
+                showStatus('Creating your secure account...', 'info');
+                
+                try {
+                    // Prepare behavioral data
+                    const behavioralData = {
+                        timestamps: typingTimestamps.map(t => t / 1000), // Convert to seconds
+                        typing_speed: calculateTypingSpeed(),
+                        tap_pattern: tapTimestamps.map(t => t / 1000),
+                        navigation_pattern: navigationTimestamps.map(t => t / 1000),
+                        gps_data: gpsData
+                    };
+                    
+                    // Prepare baseline behavior
+                    const baselineBehavior = {
+                        timestamps: typingTimestamps.map(t => t / 1000),
+                        typing_speed: calculateTypingSpeed(),
+                        tap_analysis: analyzeTapPattern(),
+                        navigation_pattern: navigationTimestamps.map(t => t / 1000),
+                        gps_data: gpsData,
+                        auth_type: document.getElementById('auth_type').value,
+                        created_at: new Date().toISOString()
+                    };
+                    
+                    // Prepare registration payload
+                    const formData = new FormData(document.getElementById('registerForm'));
+                    const payload = {
+                        name: formData.get('name'),
+                        username: formData.get('username'),
+                        email: formData.get('email'),
+                        password: formData.get('password'),
+                        auth_type: formData.get('auth_type'),
+                        behavioral_data: behavioralData,
+                        baseline_behavior: baselineBehavior
+                    };
+                    
+                    // Submit registration
+                    const response = await fetch('/api/v2/register', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (response.ok && result.status === 'success') {
+                        showStatus(`Registration successful! Confidence: ${result.confidence.toFixed(1)}%. Redirecting to login...`, 'success');
+                        setTimeout(() => {
+                            window.location.href = '/login';
+                        }, 2000);
+                    } else {
+                        // Better error handling
+                        let errorMessage = 'Unknown error';
+                        if (result.detail) {
+                            if (Array.isArray(result.detail)) {
+                                // FastAPI validation errors
+                                errorMessage = result.detail.map(e => e.msg + (e.loc ? ` [${e.loc.join(' > ')}]` : '')).join('; ');
+                            } else {
+                                errorMessage = result.detail;
+                            }
+                        } else if (result.message) {
+                            errorMessage = result.message;
+                        } else if (typeof result === 'string') {
+                            errorMessage = result;
+                        } else if (result && typeof result === 'object') {
+                            errorMessage = JSON.stringify(result);
+                        }
+                        showStatus('Registration failed: ' + errorMessage, 'error');
+                        registerBtn.disabled = false;
+                    }
+                } catch (error) {
+                    showStatus('Registration error: ' + error.message, 'error');
+                    registerBtn.disabled = false;
+                }
+            } else {
+                showStatus('Please complete the behavioral test first.', 'warning');
+            }
+        }
+
+        function calculateTypingSpeed() {
+            if (typingTimestamps.length < 2) return 0;
+            const intervals = typingTimestamps.slice(1).map((t, i) => t - typingTimestamps[i]);
+            const avgInterval = intervals.reduce((a, b) => a + b, 0) / intervals.length;
+            return Math.round(60000 / avgInterval); // WPM
+        }
+
+        function analyzeTapPattern() {
+            if (tapTimestamps.length < 3) return {};
+            
+            const intervals = tapTimestamps.slice(1).map((t, i) => t - tapTimestamps[i]);
+            const avgInterval = intervals.reduce((a, b) => a + b, 0) / intervals.length;
+            const variance = intervals.reduce((sum, val) => sum + Math.pow(val - avgInterval, 2), 0) / intervals.length;
+            
+            return {
+                avg_interval: avgInterval,
+                variance: variance,
+                tap_speed: Math.round(1000 / avgInterval * 10) / 10,
+                total_taps: tapTimestamps.length
+            };
+        }
+    </script>
+</body>
+</html> 

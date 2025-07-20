@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Secure Bank</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Secure Bank</h2>
+            <ul>
+                <li><a href="/register">Register</a></li>
+                <li>Login</li>
+            </ul>
+        </aside>
+        <main class="main-content">
+            <header class="topbar">
+                <h1>Login</h1>
+            </header>
+            <section class="form-section">
+                <form id="loginForm">
+                    <label>Username:<input type="text" name="username" required></label>
+                    <label>Password:<input type="password" name="password" required></label>
+                    <button type="submit">Login</button>
+                </form>
+                <div id="loginStatus"></div>
+            </section>
+            <section id="dashboard" style="display:none;">
+                <h2>Welcome to Secure Bank</h2>
+                <div id="dashboardStatus">Behavioral monitoring active...</div>
+                <button id="logoutBtn">Logout</button>
+            </section>
+        </main>
+    </div>
+    <script src="/static/behavior.js"></script>
+</body>
+</html> 

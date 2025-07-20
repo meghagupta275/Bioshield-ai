@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Secure Bank</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Secure Bank Admin</h2>
+            <ul>
+                <li>Dashboard</li>
+                <li><a href="/admin_login">Logout</a></li>
+            </ul>
+        </aside>
+        <main class="main-content">
+            <header class="topbar">
+                <h1>Admin Dashboard</h1>
+            </header>
+            <section>
+                <h2>Behavior Anomaly Logs</h2>
+                <table id="behaviorLogsTable">
+                    <thead>
+                        <tr>
+                            <th>User ID</th>
+                            <th>Timestamp</th>
+                            <th>Typing Speed</th>
+                            <th>Tap Speed</th>
+                            <th>Swipe Pattern</th>
+                            <th>Nav Pattern</th>
+                            <th>GPS</th>
+                            <th>Anomaly Score</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </section>
+            <section>
+                <h2>Security Logs</h2>
+                <table id="securityLogsTable">
+                    <thead>
+                        <tr>
+                            <th>User ID</th>
+                            <th>Event Type</th>
+                            <th>IP Address</th>
+                            <th>User Agent</th>
+                            <th>Details</th>
+                            <th>Timestamp</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+    <script src="/static/admin.js"></script>
+</body>
+</html> 

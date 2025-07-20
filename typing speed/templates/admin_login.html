@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Secure Bank</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Secure Bank Admin</h2>
+        </aside>
+        <main class="main-content">
+            <header class="topbar">
+                <h1>Admin Login</h1>
+            </header>
+            <section class="form-section">
+                <form id="adminLoginForm">
+                    <label>Username:<input type="text" name="username" required></label>
+                    <label>Password:<input type="password" name="password" required></label>
+                    <button type="submit">Login</button>
+                </form>
+                <div id="adminLoginStatus"></div>
+            </section>
+        </main>
+    </div>
+    <script src="/static/admin.js"></script>
+</body>
+</html> 
