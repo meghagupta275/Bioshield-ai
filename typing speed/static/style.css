@@ -1,0 +1,116 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f4f8fb;
+    color: #222;
+}
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+.sidebar {
+    width: 220px;
+    background: #1a237e;
+    color: #fff;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.sidebar h2 {
+    margin: 0 0 2rem 0;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+}
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+.sidebar li {
+    margin: 1rem 0;
+    font-size: 1.1rem;
+}
+.sidebar a {
+    color: #90caf9;
+    text-decoration: none;
+}
+.main-content {
+    flex: 1;
+    padding: 2rem;
+    background: #f4f8fb;
+}
+.topbar {
+    background: #3949ab;
+    color: #fff;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+.form-section {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(60,60,100,0.07);
+    max-width: 400px;
+    margin-bottom: 2rem;
+}
+form label {
+    display: block;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+form input, form select, textarea {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.3rem;
+    border: 1px solid #b0bec5;
+    border-radius: 4px;
+    font-size: 1rem;
+    background: #f9f9fc;
+}
+form button, #logoutBtn {
+    background: #1a237e;
+    color: #fff;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background 0.2s;
+}
+form button:disabled {
+    background: #b0bec5;
+    cursor: not-allowed;
+}
+form button:hover:not(:disabled), #logoutBtn:hover {
+    background: #3949ab;
+}
+#testText {
+    background: #e3eafc;
+    padding: 1rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    font-family: 'Fira Mono', monospace;
+}
+#timer {
+    font-size: 1.1rem;
+    color: #1a237e;
+    margin-top: 1rem;
+}
+@media (max-width: 800px) {
+    .container {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+    }
+    .main-content {
+        padding: 1rem;
+    }
+} 
